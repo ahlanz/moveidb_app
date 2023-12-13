@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moviedb_app/provider/popular_movie_provider.dart';
 import 'package:moviedb_app/theme.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  @override
+  void initState() {
+    getInit();
+
+    super.initState();
+  }
+
+  getInit() async {
+    await Provider.of<PopularMovieProvider>(context, listen: false)
+        .getMoviePopular();
+    Navigator.pushNamed(context, '/home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +115,7 @@ class LoginPage extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/home');
+            // Navigator.pushNamed(context, '/home');
           },
           child: Text(
             "Login",

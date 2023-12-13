@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:moviedb_app/models/popular_movie_model.dart';
 import 'package:moviedb_app/theme.dart';
 import 'package:moviedb_app/widget/categories_movie_popular.dart';
 
 class MovieCardPopular extends StatelessWidget {
-  const MovieCardPopular({super.key});
+  final PopularMovieModel popularMovie;
+  const MovieCardPopular({super.key, required this.popularMovie});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +18,8 @@ class MovieCardPopular extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/spiderman.png',
+              child: Image.network(
+                'https://image.tmdb.org/t/p/w500/${popularMovie.posterPath}',
                 width: 85,
                 height: 120,
               ),
@@ -28,11 +30,14 @@ class MovieCardPopular extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "Venom Let There Be Carnage",
-                  style: primaryTextColorStyle.copyWith(
-                    fontSize: 14,
-                    fontWeight: bold,
+                SizedBox(
+                  width: 170,
+                  child: Text(
+                    popularMovie.originalTitle,
+                    style: primaryTextColorStyle.copyWith(
+                      fontSize: 14,
+                      fontWeight: bold,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -48,7 +53,7 @@ class MovieCardPopular extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      '9.1/10 IMDb',
+                      popularMovie.voteAverage.toString(),
                       style: primaryTextColorStyle.copyWith(
                         fontSize: 12,
                       ),
@@ -64,18 +69,6 @@ class MovieCardPopular extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 8,
-                ),
-                Row(
-                  children: [
-                    const Icon(Icons.punch_clock),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      "1h 47m",
-                      style: primaryTextColorStyle.copyWith(fontSize: 12),
-                    ),
-                  ],
                 ),
               ],
             ),

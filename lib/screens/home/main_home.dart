@@ -27,10 +27,10 @@ class _MainHomePageState extends State<MainHomePage> {
       backgroundColor: bgcolor1,
       bottomNavigationBar: ConvexAppBar(
         disableDefaultTabController: false,
-        color: primaryColor,
+        color: primaryTextColor,
         height: 60,
         backgroundColor: bgcolor1,
-        activeColor: Color(0xff110E47),
+        activeColor: const Color(0xffFFFFFF),
         items: const [
           TabItem(icon: Icons.home, title: ''),
           TabItem(

@@ -1,28 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:moviedb_app/models/popular_movie_model.dart';
+import 'package:moviedb_app/provider/now_showing_provider.dart';
+import 'package:moviedb_app/provider/popular_movie_provider.dart';
 import 'package:moviedb_app/theme.dart';
 import 'package:moviedb_app/widget/movie_card_popular.dart';
 import 'package:moviedb_app/widget/movie_card_show.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Future<List<PopularMovieModel>> popularMovie;
+
+  @override
   Widget build(BuildContext context) {
+    PopularMovieProvider movieProvider =
+        Provider.of<PopularMovieProvider>(context);
+    NowShowingProvider nowShowingProvider =
+        Provider.of<NowShowingProvider>(context);
+
+    Future panggilFungsi() async {
+      var nowShowingMovie = await nowShowingProvider.getMovieShowing();
+      return nowShowingMovie;
+    }
+
     PreferredSizeWidget header() {
       return AppBar(
         backgroundColor: bgcolor1,
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
-        leading: const Icon(
+        leading: Icon(
           Icons.menu,
-          color: Colors.black,
+          color: primaryTextColor,
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(Icons.notifications, color: Colors.black),
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(Icons.notifications, color: primaryTextColor),
           ),
         ],
         title: Text(
@@ -33,7 +54,7 @@ class HomePage extends StatelessWidget {
     }
 
     Widget headerProfile() {
-      return Container(
+      return SizedBox(
         width: double.infinity,
         child: Row(
           children: [
@@ -67,40 +88,49 @@ class HomePage extends StatelessWidget {
     Widget headerShow() {
       return Container(
         margin: const EdgeInsets.only(top: 16),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              child: Text(
-                "Now Showing",
-                style: primaryTextColorStyle.copyWith(fontSize: 16),
-              ),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    "Now Showing",
+                    style: primaryTextColorStyle.copyWith(fontSize: 16),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    panggilFungsi();
+                  },
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(width: 0.5),
+                    ),
+                    child: Text(
+                      "See more",
+                      style: primaryTextColorStyle.copyWith(fontSize: 10),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                border: Border.all(width: 0.5),
-              ),
-              child: Text(
-                "See more",
-                style: primaryTextColorStyle.copyWith(fontSize: 10),
-              ),
-            )
           ],
         ),
       );
     }
 
     Widget listShowMovie() {
-      return const SingleChildScrollView(
+      return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: [
-            MovieShowCard(),
-            MovieShowCard(),
-            MovieShowCard(),
-            MovieShowCard(),
-          ],
+          children: nowShowingProvider.nowShowingMovie
+              .map((data) => MovieShowCard(
+                    popularMovie: data,
+                  ))
+              .toList(),
         ),
       );
     }
@@ -133,16 +163,12 @@ class HomePage extends StatelessWidget {
     }
 
     Widget listPopularCard() {
-      return const Column(
-        children: [
-          MovieCardPopular(),
-          MovieCardPopular(),
-          MovieCardPopular(),
-          MovieCardPopular(),
-          MovieCardPopular(),
-          MovieCardPopular(),
-          MovieCardPopular(),
-        ],
+      return Column(
+        children: movieProvider.popularMovie
+            .map((moviePopular) => MovieCardPopular(
+                  popularMovie: moviePopular,
+                ))
+            .toList(),
       );
     }
 

@@ -30,12 +30,12 @@ class DetailMoviePage extends StatelessWidget {
             ),
           ),
           Container(
-            margin: const EdgeInsets.only(top: 250),
+            margin: const EdgeInsets.only(top: 275),
             padding: const EdgeInsets.all(24),
             width: double.infinity,
             decoration: BoxDecoration(
               color: bgcolor1,
-              borderRadius: BorderRadius.vertical(
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(24),
               ),
             ),

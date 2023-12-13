@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 double margin = 30;
 
-Color primaryColor = Color(0xff0386D0);
-Color bgcolor1 = Color(0xffFFFFFF);
-Color primaryTextColor = Color(0xff000000);
+Color primaryColor = const Color(0xff0386D0);
+Color bgcolor1 = const Color(0xff060D20);
+Color primaryTextColor = const Color(0xffFFFFFF);
 
 TextStyle primaryTextColorStyle = GoogleFonts.poppins(color: primaryTextColor);
 
