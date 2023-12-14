@@ -31,11 +31,21 @@ class PopularMovieModel {
     required this.voteCount,
   });
 
+  @override
+  String toString() {
+    return 'PopularMovieModel('
+        'id: $id, '
+        'title: $title, '
+        'releaseDate: $releaseDate, '
+        'popularity: $popularity, '
+        'voteAverage: $voteAverage, '
+        'voteCount: $voteCount)';
+  }
+
   factory PopularMovieModel.fromJson(Map<String, dynamic> json) {
     return PopularMovieModel(
       adult: json['adult'] as bool,
       backdropPath: json['backdrop_path'] as String,
-      // genreIds: List<int>.from(json['genre_ids']),
       id: json['id'] as int,
       originalLanguage: json['original_language'] as String,
       originalTitle: json['original_title'] as String,
@@ -59,7 +69,7 @@ class PopularMovieModel {
       'original_title': originalTitle,
       'overview': overview,
       'popularity': popularity,
-      'poster_path': popularity,
+      'poster_path': posterPath,
       'release_date': releaseDate,
       'title': title,
       'video': video,

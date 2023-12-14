@@ -13,19 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   @override
-  void initState() {
-    getInit();
-
-    super.initState();
-  }
-
-  getInit() async {
-    await Provider.of<PopularMovieProvider>(context, listen: false)
-        .getMoviePopular();
-    Navigator.pushNamed(context, '/home');
-  }
-
-  @override
   Widget build(BuildContext context) {
     Widget header() {
       return Column(
@@ -115,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         child: TextButton(
           onPressed: () {
-            // Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/home');
           },
           child: Text(
             "Login",

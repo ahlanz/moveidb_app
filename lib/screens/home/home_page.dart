@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:moviedb_app/models/cast_artis_popular_model.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
+import 'package:moviedb_app/provider/artist_popular_provider.dart';
 import 'package:moviedb_app/provider/now_showing_provider.dart';
 import 'package:moviedb_app/provider/popular_movie_provider.dart';
+import 'package:moviedb_app/service/popular_artist_service.dart';
 import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/widget/home_widget/cast_home_widget.dart';
 import 'package:moviedb_app/widget/movie_card_popular.dart';
 import 'package:moviedb_app/widget/movie_card_show.dart';
 import 'package:provider/provider.dart';
@@ -17,17 +21,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<List<PopularMovieModel>> popularMovie;
+  @override
+  void initState() {
+    getInit();
+    super.initState();
+  }
+
+  getInit() async {
+    await Provider.of<PopularMovieProvider>(context, listen: false)
+        .getMoviePopular();
+    Provider.of<NowShowingProvider>(context, listen: false).getMovieShowing();
+  }
 
   @override
   Widget build(BuildContext context) {
-    PopularMovieProvider movieProvider =
-        Provider.of<PopularMovieProvider>(context);
     NowShowingProvider nowShowingProvider =
         Provider.of<NowShowingProvider>(context);
+    PopularMovieProvider movieProvider =
+        Provider.of<PopularMovieProvider>(context);
+    ArtisProvider artisProvider = Provider.of<ArtisProvider>(context);
+    print(artisProvider.artisPopular);
+    ArtisService artisService = ArtisService();
 
     Future panggilFungsi() async {
-      var nowShowingMovie = await nowShowingProvider.getMovieShowing();
-      return nowShowingMovie;
+      var artis = await Provider.of<ArtisProvider>(context, listen: false)
+          .getArtisPopular();
+      return artis;
     }
 
     PreferredSizeWidget header() {
@@ -127,8 +146,8 @@ class _HomePageState extends State<HomePage> {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: nowShowingProvider.nowShowingMovie
-              .map((data) => MovieShowCard(
-                    popularMovie: data,
+              .map((nowShowing) => MovieShowCard(
+                    popularMovie: nowShowing,
                   ))
               .toList(),
         ),
@@ -172,6 +191,38 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    Widget castArtis() {
+      return Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(
+          bottom: 20,
+        ),
+        child: Text(
+          'Popular Actors',
+          textAlign: TextAlign.start,
+          style: primaryTextColorStyle.copyWith(
+            fontSize: 16,
+            fontWeight: medium,
+          ),
+        ),
+      );
+    }
+
+    Widget listCast() {
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: artisProvider.artisPopular
+              .map(
+                (artis) => CastPopular(
+                  artis: artis,
+                ),
+              )
+              .toList(),
+        ),
+      );
+    }
+
     Widget content() {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: margin, vertical: 16),
@@ -182,6 +233,8 @@ class _HomePageState extends State<HomePage> {
               headerProfile(),
               headerShow(),
               listShowMovie(),
+              castArtis(),
+              listCast(),
               headerPopular(),
               listPopularCard()
             ],

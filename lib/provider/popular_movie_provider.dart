@@ -16,7 +16,7 @@ class PopularMovieProvider extends ChangeNotifier {
     try {
       var popularMovie = await moviePopularService.getMoviePopular();
       _popularMovie = popularMovie;
-      print(_popularMovie[0].originalTitle);
+      
       notifyListeners();
     } catch (e) {
       print('gagal get Popular movie');
