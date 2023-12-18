@@ -22,15 +22,18 @@ class _MainHomePageState extends State<MainHomePage> {
       Center(child: Text("Detail film")),
     ];
 
+    var primaryScheme = Theme.of(context).colorScheme.primary;
+    var backgroundScheme = Theme.of(context).colorScheme.background;
+
     return Scaffold(
       body: body[curentIndex],
-      backgroundColor: bgcolor1,
+      backgroundColor: backgroundScheme,
       bottomNavigationBar: ConvexAppBar(
         disableDefaultTabController: false,
-        color: primaryTextColor,
+        color: primaryScheme,
         height: 60,
-        backgroundColor: bgcolor1,
-        activeColor: const Color(0xffFFFFFF),
+        backgroundColor: backgroundScheme,
+        activeColor: primaryScheme,
         items: const [
           TabItem(icon: Icons.home, title: ''),
           TabItem(

@@ -5,6 +5,7 @@ import 'package:moviedb_app/provider/artist_popular_provider.dart';
 import 'package:moviedb_app/provider/now_showing_provider.dart';
 import 'package:moviedb_app/provider/popular_movie_provider.dart';
 import 'package:moviedb_app/theme/theme.dart';
+import 'package:moviedb_app/theme/theme_provider.dart';
 import 'package:moviedb_app/widget/home_widget/cast_home_widget.dart';
 import 'package:moviedb_app/widget/movie_card_popular.dart';
 import 'package:moviedb_app/widget/movie_card_show.dart';
@@ -45,29 +46,54 @@ class _HomePageState extends State<HomePage> {
       return artis;
     }
 
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
+    var primaryScheme = Theme.of(context).colorScheme.primary;
+    var backgroundScheme = Theme.of(context).colorScheme.background;
+
     PreferredSizeWidget header() {
       return AppBar(
-        backgroundColor: bgcolor1,
+        backgroundColor: backgroundScheme,
         automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
         leading: Icon(
           Icons.menu,
-          color: primaryTextColor,
+          color: primaryScheme,
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: Icon(Icons.dark_mode, color: primaryTextColor),
+            child: GestureDetector(
+              onTap: () {
+                Provider.of<ThemeProvider>(context, listen: false)
+                    .toogleTheme();
+              },
+              child: themeProvider.isSwitch == true
+                  ? Icon(
+                      Icons.dark_mode,
+                      color: primaryScheme,
+                    )
+                  : Icon(
+                      Icons.light_mode,
+                      color: primaryScheme,
+                    ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
-            child: Icon(Icons.notifications, color: primaryTextColor),
+            child: Icon(
+              Icons.notifications,
+              color: primaryScheme,
+            ),
           ),
         ],
         title: Text(
           "Flimku",
-          style: primaryTextColorStyle.copyWith(fontSize: 16),
+          style: primaryTextColorStyle.copyWith(
+            fontSize: 16,
+            color: primaryScheme,
+          ),
         ),
       );
     }
@@ -83,7 +109,10 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text(
                     "Hai Haidar",
-                    style: primaryTextColorStyle.copyWith(fontSize: 16),
+                    style: primaryTextColorStyle.copyWith(
+                      fontSize: 16,
+                      color: primaryScheme,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
@@ -91,7 +120,10 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     'Mau nonton film apa hari ini?',
                     style: primaryTextColorStyle.copyWith(
-                        fontSize: 14, fontWeight: semibold),
+                      fontSize: 14,
+                      fontWeight: semibold,
+                      color: primaryScheme,
+                    ),
                   )
                 ],
               ),
@@ -114,7 +146,10 @@ class _HomePageState extends State<HomePage> {
                 Expanded(
                   child: Text(
                     "Now Showing",
-                    style: primaryTextColorStyle.copyWith(fontSize: 16),
+                    style: primaryTextColorStyle.copyWith(
+                      fontSize: 16,
+                      color: primaryScheme,
+                    ),
                   ),
                 ),
                 GestureDetector(
@@ -130,7 +165,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Text(
                       "See more",
-                      style: primaryTextColorStyle.copyWith(fontSize: 10),
+                      style: primaryTextColorStyle.copyWith(
+                        fontSize: 10,
+                        color: primaryScheme,
+                      ),
                     ),
                   ),
                 ),
@@ -148,6 +186,7 @@ class _HomePageState extends State<HomePage> {
           children: nowShowingProvider.nowShowingMovie
               .map((nowShowing) => MovieShowCard(
                     popularMovie: nowShowing,
+                    color: primaryScheme,
                   ))
               .toList(),
         ),
@@ -162,7 +201,10 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: Text(
                 "Popular",
-                style: primaryTextColorStyle.copyWith(fontSize: 16),
+                style: primaryTextColorStyle.copyWith(
+                  fontSize: 16,
+                  color: primaryScheme,
+                ),
               ),
             ),
             Container(
@@ -173,7 +215,10 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Text(
                 "See more",
-                style: primaryTextColorStyle.copyWith(fontSize: 10),
+                style: primaryTextColorStyle.copyWith(
+                  fontSize: 10,
+                  color: primaryScheme,
+                ),
               ),
             )
           ],
@@ -186,6 +231,7 @@ class _HomePageState extends State<HomePage> {
         children: movieProvider.popularMovie
             .map((moviePopular) => MovieCardPopular(
                   popularMovie: moviePopular,
+                  color: primaryScheme,
                 ))
             .toList(),
       );
@@ -203,6 +249,7 @@ class _HomePageState extends State<HomePage> {
           style: primaryTextColorStyle.copyWith(
             fontSize: 16,
             fontWeight: medium,
+            color: primaryScheme,
           ),
         ),
       );
@@ -216,6 +263,7 @@ class _HomePageState extends State<HomePage> {
               .map(
                 (artis) => CastPopular(
                   artis: artis,
+                  color: primaryScheme,
                 ),
               )
               .toList(),
@@ -244,7 +292,7 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      backgroundColor: bgcolor1,
+      backgroundColor: backgroundScheme,
       appBar: header(),
       body: content(),
     );

@@ -6,19 +6,16 @@ import 'package:moviedb_app/screens/auth_page/login_page.dart';
 import 'package:moviedb_app/screens/auth_page/splash_page.dart';
 import 'package:moviedb_app/screens/detail_movie_page.dart/detail_movei_page.dart';
 import 'package:moviedb_app/screens/home/main_home.dart';
+import 'package:moviedb_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
+  runApp(
+    MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeProvider(),
+        ),
         ChangeNotifierProvider(
           create: (context) => PopularMovieProvider(),
         ),
@@ -27,17 +24,27 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ArtisProvider(),
-        )
+        ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (context) => SplashPage(),
-          '/login': (context) => LoginPage(),
-          '/home': (context) => MainHomePage(),
-          '/detail-movie': (context) => DetailMoviePage(),
-        },
-      ),
+      child: const MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      routes: {
+        '/': (context) => SplashPage(),
+        '/login': (context) => LoginPage(),
+        '/home': (context) => MainHomePage(),
+        '/detail-movie': (context) => DetailMoviePage(),
+      },
     );
   }
 }

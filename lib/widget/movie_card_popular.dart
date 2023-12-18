@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
 import 'package:moviedb_app/theme/theme.dart';
-import 'package:moviedb_app/widget/categories_movie_popular.dart';
 
 class MovieCardPopular extends StatelessWidget {
   final PopularMovieModel popularMovie;
-  const MovieCardPopular({super.key, required this.popularMovie});
+  final Color color;
+  const MovieCardPopular({
+    super.key,
+    required this.popularMovie,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,7 @@ class MovieCardPopular extends StatelessWidget {
                     style: primaryTextColorStyle.copyWith(
                       fontSize: 14,
                       fontWeight: bold,
+                      color: color,
                     ),
                   ),
                 ),
@@ -58,6 +63,7 @@ class MovieCardPopular extends StatelessWidget {
                       '${popularRated.toString()}/10 IMDb',
                       style: primaryTextColorStyle.copyWith(
                         fontSize: 12,
+                        color: color,
                       ),
                     ),
                   ],

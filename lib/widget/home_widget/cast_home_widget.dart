@@ -4,7 +4,8 @@ import 'package:moviedb_app/theme/theme.dart';
 
 class CastPopular extends StatelessWidget {
   final ArtisModel artis;
-  const CastPopular({super.key, required this.artis});
+  final Color color;
+  const CastPopular({super.key, required this.artis, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,10 @@ class CastPopular extends StatelessWidget {
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
-                style: primaryTextColorStyle.copyWith(fontSize: 12),
+                style: primaryTextColorStyle.copyWith(
+                  fontSize: 12,
+                  color: color,
+                ),
               ),
             )
           ],

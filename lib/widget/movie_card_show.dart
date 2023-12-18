@@ -4,7 +4,9 @@ import 'package:moviedb_app/theme/theme.dart';
 
 class MovieShowCard extends StatelessWidget {
   final PopularMovieModel popularMovie;
-  const MovieShowCard({super.key, required this.popularMovie});
+  final Color color;
+  const MovieShowCard(
+      {super.key, required this.popularMovie, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,10 @@ class MovieShowCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: primaryTextColorStyle.copyWith(
-                  fontSize: 16, fontWeight: bold),
+                fontSize: 16,
+                fontWeight: bold,
+                color: color,
+              ),
             ),
             const SizedBox(
               height: 8,
@@ -52,6 +57,7 @@ class MovieShowCard extends StatelessWidget {
                 Text(
                   '${popularRated.toString()}/10',
                   style: primaryTextColorStyle.copyWith(
+                    color: color,
                     fontSize: 12,
                   ),
                 )
