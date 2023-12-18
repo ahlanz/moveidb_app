@@ -6,8 +6,10 @@ double margin = 30;
 Color primaryColor = const Color(0xff0386D0);
 Color bgcolor1 = const Color(0xff060D20);
 Color primaryTextColor = const Color(0xffFFFFFF);
+Color buttonColor = const Color(0xffFEB800);
 
 TextStyle primaryTextColorStyle = GoogleFonts.poppins(color: primaryTextColor);
+TextStyle bannerTextStyle = GoogleFonts.rubikGlitch(color: primaryTextColor);
 
 FontWeight light = FontWeight.w300;
 FontWeight medium = FontWeight.w500;

@@ -1,4 +1,4 @@
-import 'package:moviedb_app/models/popular_movie_model.dart';
+
 
 class ArtisModel {
   bool? adult;

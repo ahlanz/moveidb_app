@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:moviedb_app/provider/popular_movie_provider.dart';
-import 'package:moviedb_app/theme.dart';
-import 'package:provider/provider.dart';
+import 'package:moviedb_app/theme/theme.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

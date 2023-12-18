@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/theme/theme.dart';
 import 'package:moviedb_app/widget/cast_widget.dart';
 import 'package:moviedb_app/widget/categories_movie_popular.dart';
 

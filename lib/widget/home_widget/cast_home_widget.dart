@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/models/cast_artis_popular_model.dart';
-import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/theme/theme.dart';
 
 class CastPopular extends StatelessWidget {
   final ArtisModel artis;

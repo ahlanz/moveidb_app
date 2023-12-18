@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:moviedb_app/models/cast_artis_popular_model.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
 import 'package:moviedb_app/provider/artist_popular_provider.dart';
 import 'package:moviedb_app/provider/now_showing_provider.dart';
 import 'package:moviedb_app/provider/popular_movie_provider.dart';
-import 'package:moviedb_app/service/popular_artist_service.dart';
-import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/theme/theme.dart';
 import 'package:moviedb_app/widget/home_widget/cast_home_widget.dart';
 import 'package:moviedb_app/widget/movie_card_popular.dart';
 import 'package:moviedb_app/widget/movie_card_show.dart';
@@ -27,10 +25,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  getInit() async {
-    await Provider.of<PopularMovieProvider>(context, listen: false)
-        .getMoviePopular();
+  getInit() {
+    Provider.of<PopularMovieProvider>(context, listen: false).getMoviePopular();
     Provider.of<NowShowingProvider>(context, listen: false).getMovieShowing();
+    Provider.of<ArtisProvider>(context, listen: false).getArtisPopular();
   }
 
   @override
@@ -40,8 +38,6 @@ class _HomePageState extends State<HomePage> {
     PopularMovieProvider movieProvider =
         Provider.of<PopularMovieProvider>(context);
     ArtisProvider artisProvider = Provider.of<ArtisProvider>(context);
-    print(artisProvider.artisPopular);
-    ArtisService artisService = ArtisService();
 
     Future panggilFungsi() async {
       var artis = await Provider.of<ArtisProvider>(context, listen: false)
@@ -60,6 +56,10 @@ class _HomePageState extends State<HomePage> {
           color: primaryTextColor,
         ),
         actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: Icon(Icons.dark_mode, color: primaryTextColor),
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 10),
             child: Icon(Icons.notifications, color: primaryTextColor),

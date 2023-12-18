@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
-import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/theme/theme.dart';
 import 'package:moviedb_app/widget/categories_movie_popular.dart';
 
 class MovieCardPopular extends StatelessWidget {
@@ -9,6 +9,8 @@ class MovieCardPopular extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double popularRated =
+        double.parse(popularMovie.voteAverage.toStringAsFixed(1));
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, '/detail-movie'),
       child: Container(
@@ -53,20 +55,21 @@ class MovieCardPopular extends StatelessWidget {
                       width: 4,
                     ),
                     Text(
-                      popularMovie.voteAverage.toString(),
+                      '${popularRated.toString()}/10 IMDb',
                       style: primaryTextColorStyle.copyWith(
                         fontSize: 12,
                       ),
                     ),
                   ],
                 ),
-                const Row(
-                  children: [
-                    CategoriePopularMovie(),
-                    CategoriePopularMovie(),
-                    CategoriePopularMovie(),
-                  ],
-                ),
+                //todo : genre movie with id
+                // const Row(
+                //   children: [
+                //     CategoriePopularMovie(),
+                //     CategoriePopularMovie(),
+                //     CategoriePopularMovie(),
+                //   ],
+                // ),
                 const SizedBox(
                   height: 8,
                 ),

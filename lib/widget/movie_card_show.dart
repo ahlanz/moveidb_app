@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
-import 'package:moviedb_app/theme.dart';
+import 'package:moviedb_app/theme/theme.dart';
 
 class MovieShowCard extends StatelessWidget {
   final PopularMovieModel popularMovie;
@@ -8,6 +8,8 @@ class MovieShowCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double popularRated =
+        double.parse(popularMovie.voteAverage.toStringAsFixed(1));
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, '/detail-movie'),
       child: Container(
@@ -48,7 +50,7 @@ class MovieShowCard extends StatelessWidget {
                   width: 4,
                 ),
                 Text(
-                  popularMovie.voteAverage.toString(),
+                  '${popularRated.toString()}/10',
                   style: primaryTextColorStyle.copyWith(
                     fontSize: 12,
                   ),

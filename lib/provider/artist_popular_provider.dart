@@ -16,8 +16,6 @@ class ArtisProvider extends ChangeNotifier {
     try {
       var artisPopular = await artisService.getArtis();
       _artistPopular = artisPopular;
-      print('Provider artis popular');
-      print(artisPopular);
       notifyListeners();
     } catch (e) {
       print('gagal get artis popular provider');

@@ -11,8 +11,6 @@ class ArtisService {
     var url = Uri.parse('$baseUrl/person/popular?api_key=$apiKey');
     var headers = {'content-type': 'application/json'};
     var response = await http.get(url, headers: headers);
-    print(response.statusCode);
-    print(response.body);
     if (response.statusCode == 200) {
       final List<dynamic> data = json.decode(response.body)['results'];
       List<ArtisModel> artisMovie = [];
@@ -20,7 +18,7 @@ class ArtisService {
         artisMovie.add(ArtisModel.fromJson(items));
       }
       print('=====service Artist ====');
-      print(artisMovie);
+
       // var artisMovie = data.map((data) => ArtisModel.fromJson(data)).toList();
       // print(artisMovie);
       return artisMovie;
