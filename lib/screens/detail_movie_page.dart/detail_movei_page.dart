@@ -1,260 +1,186 @@
 import 'package:flutter/material.dart';
+import 'package:moviedb_app/models/popular_movie_model.dart';
 import 'package:moviedb_app/theme/theme.dart';
 import 'package:moviedb_app/widget/cast_widget.dart';
-import 'package:moviedb_app/widget/categories_movie_popular.dart';
 
 class DetailMoviePage extends StatelessWidget {
-  const DetailMoviePage({super.key});
+  final PopularMovieModel movie;
+  const DetailMoviePage({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
-    Widget content() {
-      return Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: 300,
-            child: Image.asset(
-              'assets/spiderman.png',
+    double popularRated = double.parse(movie.voteAverage.toStringAsFixed(1));
+
+    Widget header() {
+      return Container(
+        width: double.infinity,
+        child: Stack(
+          children: [
+            Image.network(
+              'https://image.tmdb.org/t/p/w500/${movie.posterPath}',
+              width: double.infinity,
+              height: 570,
               fit: BoxFit.cover,
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 30),
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(
-                Icons.arrow_back,
+            Container(
+              margin: const EdgeInsets.only(top: 560),
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
                 color: bgcolor1,
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 275),
-            padding: const EdgeInsets.all(24),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: bgcolor1,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(24),
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child: IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // NOTE: HEader/Judul Film dan bookmark
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: 198,
-                      child: Text(
-                        "Spiderman: No Way Home",
-                        style: primaryTextColorStyle.copyWith(
-                          fontSize: 20,
-                          fontWeight: bold,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.bookmark_add_outlined),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                // NOTED : RATING FILM
-                Row(
-                  children: [
-                    Image.asset(
-                      'assets/Star.png',
-                      width: 12,
-                    ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      '9.1/10 IMDb',
-                      style: primaryTextColorStyle.copyWith(
-                        fontSize: 12,
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                // NOTE : Genre Film
-                const Row(
-                  children: [
-                    CategoriePopularMovie(),
-                    CategoriePopularMovie(),
-                    CategoriePopularMovie(),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                // NOTE : Batas waktu penayangan film
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 109,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Length',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '2h 28min',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 109,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Length',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '2h 28min',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      width: 109,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Length',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          Text(
-                            '2h 28min',
-                            style: primaryTextColorStyle.copyWith(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                // NOTE : Deskripsi Film
-                Text(
-                  'Description',
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget judul() {
+      return Column(
+        children: [
+          //Todo judul film dan bookmark
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: 198,
+                child: Text(
+                  movie.originalTitle,
                   style: primaryTextColorStyle.copyWith(
-                      fontSize: 16, fontWeight: bold),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    'With Spider-Mans identity now revealed, Peter asks Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be SpiderMan.',
-                    style: TextStyle(
-                      color: Color(0xff9C9C9C),
-                    ),
+                    fontSize: 16,
+                    fontWeight: bold,
                   ),
                 ),
-                const SizedBox(
-                  height: 24,
-                ),
-                //NOTE : Cast/pemain film
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        "Cast",
-                        style: primaryTextColorStyle.copyWith(
-                          fontSize: 16,
-                          fontWeight: bold,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(width: 0.5),
-                      ),
-                      child: Text(
-                        "See more",
-                        style: primaryTextColorStyle.copyWith(
-                          fontSize: 10,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                const SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      CastWidget(),
-                      CastWidget(),
-                      CastWidget(),
-                      CastWidget(),
-                      CastWidget(),
-                      CastWidget(),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              Icon(Icons.bookmark)
+            ],
           ),
+          const SizedBox(
+            height: 9,
+          ),
+          //Todo rating film
+          Row(
+            children: [
+              Image.asset(
+                'assets/Star.png',
+                width: 12,
+              ),
+              const SizedBox(
+                width: 4,
+              ),
+              Text('$popularRated/10 IMDb')
+            ],
+          ),
+          // const SizedBox(
+          //   height: 18,
+          // ),
+          //Todo List Genre
         ],
       );
     }
 
-    return Scaffold(
-      body: SingleChildScrollView(
+    Widget deskripsi() {
+      return Container(
+        margin: const EdgeInsets.only(top: 18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Description',
+              style: primaryTextColorStyle.copyWith(
+                fontSize: 16,
+                fontWeight: bold,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            SizedBox(
+              child: Text(
+                movie.overview,
+                style: primaryTextColorStyle.copyWith(
+                  fontSize: 12,
+                  color: Colors.grey,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget artisMovie() {
+      return Container(
+        margin: const EdgeInsets.only(top: 18, bottom: 18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Artis Movie',
+              style: primaryTextColorStyle.copyWith(
+                fontSize: 16,
+                fontWeight: bold,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  CastWidget(),
+                  CastWidget(),
+                  CastWidget(),
+                  CastWidget(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget isiContent() {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          children: [
+            judul(),
+            deskripsi(),
+            artisMovie(),
+          ],
+        ),
+      );
+    }
+
+    Widget content() {
+      return SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            content(),
+            header(),
+            isiContent(),
           ],
         ),
-      ),
+      );
+    }
+
+    return Scaffold(
+      backgroundColor: bgcolor1,
+      body: content(),
     );
   }
 }

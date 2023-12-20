@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/models/popular_movie_model.dart';
+import 'package:moviedb_app/screens/detail_movie_page.dart/detail_movei_page.dart';
 import 'package:moviedb_app/theme/theme.dart';
 
 class MovieCardPopular extends StatelessWidget {
@@ -16,7 +17,14 @@ class MovieCardPopular extends StatelessWidget {
     double popularRated =
         double.parse(popularMovie.voteAverage.toStringAsFixed(1));
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/detail-movie'),
+      onTap: (){
+         Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailMoviePage(movie: popularMovie),
+          ),
+        );
+      },
       child: Container(
         margin: const EdgeInsets.only(top: 15),
         child: Row(
