@@ -44,6 +44,7 @@ class SplashPage extends StatelessWidget {
               onTap: () => Navigator.pushNamed(context, '/login'),
               child: MyButton(
                 color: buttonColor,
+                margin: EdgeInsets.zero,
                 height: 50,
                 width: double.infinity,
                 child: Text(

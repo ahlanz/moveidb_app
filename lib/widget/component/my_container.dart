@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class MyContainer extends StatelessWidget {
   final Color? color;
+  final double? height;
   const MyContainer({
     super.key,
     required this.color,
+    required this.height
   });
 
   @override
@@ -14,7 +16,7 @@ class MyContainer extends StatelessWidget {
         color: color,
       ),
       width: double.infinity,
-      height: 300,
+      height: height,
     );
   }
 }

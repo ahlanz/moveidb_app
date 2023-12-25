@@ -5,12 +5,14 @@ class MyButton extends StatelessWidget {
   final Widget? child;
   final double? width;
   final double? height;
+  final EdgeInsets? margin;
   const MyButton({
     super.key,
     required this.color,
     required this.child,
     required this.width,
     required this.height,
+    required this.margin,
   });
 
   @override

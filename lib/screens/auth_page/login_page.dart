@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:moviedb_app/theme/theme.dart';
+import 'package:moviedb_app/widget/component/my_button.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,125 +12,121 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    Widget header() {
-      return Column(
-        children: [
-          Text(
-            "Login",
-            style: primaryTextColorStyle.copyWith(
-              fontSize: 28,
-              fontWeight: medium,
-            ),
-          )
-        ],
-      );
-    }
-
     Widget inputEmail() {
       return Container(
         margin: const EdgeInsets.only(top: 28),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Email",
-              style: primaryTextColorStyle.copyWith(
-                fontSize: 14,
-                fontWeight: medium,
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: bgcolor2.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(
+              30,
             ),
-            SizedBox(
-              height: 6,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.4),
-                  borderRadius: BorderRadius.circular(4),
+          ),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              hintText: "Your Email",
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
                 ),
-                prefixIcon: Icon(Icons.email),
-                labelText: "Your Email",
               ),
-            )
-          ],
+              prefixIcon: Icon(Icons.email),
+              border: InputBorder.none,
+              isDense: true,
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+            ),
+          ),
         ),
       );
     }
 
     Widget inputPassword() {
       return Container(
-        margin: const EdgeInsets.only(top: 18),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Password",
-              style: primaryTextColorStyle.copyWith(
-                fontSize: 14,
-                fontWeight: medium,
-              ),
+        margin: const EdgeInsets.only(top: 15),
+        child: Container(
+          decoration: BoxDecoration(
+            color: bgcolor2.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(
+              30,
             ),
-            SizedBox(
-              height: 6,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 0.4),
-                  borderRadius: BorderRadius.circular(4),
+          ),
+          child: TextFormField(
+            decoration: const InputDecoration(
+              hintText: "Your Password",
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
                 ),
-                prefixIcon: Icon(Icons.password_rounded),
-                suffixIcon: Icon(Icons.remove_red_eye),
-                labelText: "Your Password",
               ),
+              prefixIcon: Icon(Icons.lock),
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
             ),
-          ],
+          ),
         ),
       );
     }
 
-    Widget buttonLog() {
-      return Container(
-        margin: const EdgeInsets.only(top: 64),
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius:
-              BorderRadius.circular(10.0), // Adjust the value as needed
-          color: primaryColor, // Button background color
-        ),
-        child: TextButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
+    Widget buttonLogin() {
+      return GestureDetector(
+        onTap: () => Navigator.pushNamed(context, '/home'),
+        child: MyButton(
+          margin: const EdgeInsets.only(top: 20),
+          color: buttonColor,
+          height: 50,
+          width: double.infinity,
           child: Text(
-            "Login",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontFamily: GoogleFonts.poppins().toString(),
+            'Sign In',
+            textAlign: TextAlign.center,
+            style: primaryTextColorStyle.copyWith(
+              fontSize: 20,
+              fontWeight: semibold,
             ),
           ),
         ),
+      );
+    }
+
+    Widget content() {
+      return Stack(
+        children: [
+          Image.asset(
+            'assets/banner_splash.jpg',
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 30, left: 20),
+            child: Text(
+              'Login',
+              style: primaryTextColorStyle.copyWith(
+                fontSize: 30,
+              ),
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  inputEmail(),
+                  inputPassword(),
+                  const SizedBox(height: 20),
+                  buttonLogin(),
+                ],
+              ),
+            ),
+          )
+        ],
       );
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: margin, vertical: 65),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                header(),
-                inputEmail(),
-                inputPassword(),
-                buttonLog(),
-              ],
-            ),
-          ),
-        ),
-      ),
+      body: content(),
     );
   }
 }
