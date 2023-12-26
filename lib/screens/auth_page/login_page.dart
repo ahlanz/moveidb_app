@@ -23,15 +23,21 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           child: TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              hintStyle: primaryTextColorStyle.copyWith(
+                color: bgcolor1,
+              ),
               hintText: "Your Email",
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(
                   Radius.circular(30),
                 ),
               ),
-              prefixIcon: Icon(Icons.email),
+              prefixIcon: Icon(
+                Icons.email,
+                color: bgcolor1,
+              ),
               border: InputBorder.none,
               isDense: true,
               contentPadding: EdgeInsets.symmetric(vertical: 15.0),
@@ -52,17 +58,21 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
           child: TextFormField(
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
+              hintStyle: primaryTextColorStyle.copyWith(color: bgcolor1),
               hintText: "Your Password",
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(
                   Radius.circular(30),
                 ),
               ),
-              prefixIcon: Icon(Icons.lock),
+              prefixIcon: Icon(
+                Icons.lock,
+                color: bgcolor1,
+              ),
               border: InputBorder.none,
-              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+              contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
             ),
           ),
         ),
@@ -100,11 +110,22 @@ class _LoginPageState extends State<LoginPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 30, left: 20),
-            child: Text(
-              'Login',
-              style: primaryTextColorStyle.copyWith(
-                fontSize: 30,
-              ),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                  ),
+                ),
+                Text(
+                  'Login',
+                  style: primaryTextColorStyle.copyWith(
+                    fontSize: 30,
+                  ),
+                ),
+              ],
             ),
           ),
           Center(

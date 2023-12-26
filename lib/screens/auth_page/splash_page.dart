@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:moviedb_app/theme/theme.dart';
+import 'package:moviedb_app/theme/theme_provider.dart';
 import 'package:moviedb_app/widget/component/my_button.dart';
+import 'package:provider/provider.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+
+    var primaryScheme = Theme.of(context).colorScheme.primary;
+    var backgroundScheme = Theme.of(context).colorScheme.background;
     Widget description() {
       return Container(
         margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -16,6 +27,7 @@ class SplashPage extends StatelessWidget {
               'Info Film',
               style: bannerTextStyle.copyWith(
                 fontSize: 35,
+                color: primaryScheme,
               ),
             ),
             const SizedBox(
@@ -25,6 +37,7 @@ class SplashPage extends StatelessWidget {
               'More Trending Movies',
               style: primaryTextColorStyle.copyWith(
                 fontSize: 30,
+                color: primaryScheme,
               ),
             ),
             const SizedBox(
@@ -35,6 +48,7 @@ class SplashPage extends StatelessWidget {
               textAlign: TextAlign.center,
               style: primaryTextColorStyle.copyWith(
                 fontSize: 14,
+                color: primaryScheme,
               ),
             ),
             const SizedBox(
@@ -53,6 +67,7 @@ class SplashPage extends StatelessWidget {
                   style: primaryTextColorStyle.copyWith(
                     fontSize: 20,
                     fontWeight: semibold,
+                    color: primaryScheme,
                   ),
                 ),
               ),
@@ -74,12 +89,11 @@ class SplashPage extends StatelessWidget {
                   width: 7,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.pushNamed(context, '/register'),
                   child: Text(
                     'Sign Up',
                     style: primaryTextColorStyle.copyWith(
-                      fontSize: 12,
-                    ),
+                        fontSize: 12, color: primaryScheme),
                   ),
                 ),
               ],
@@ -97,6 +111,24 @@ class SplashPage extends StatelessWidget {
               Image.asset(
                 'assets/banner_splash.jpg',
                 fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30),
+                child: IconButton(
+                  onPressed: () {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toogleTheme();
+                  },
+                  icon: themeProvider.isSwitch == true
+                      ? const Icon(
+                          Icons.dark_mode,
+                          color: Colors.white,
+                        )
+                      : const Icon(
+                          Icons.light_mode,
+                          color: Colors.white,
+                        ),
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 100),
@@ -122,7 +154,7 @@ class SplashPage extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: bgcolor1,
+      backgroundColor: backgroundScheme,
       body: content(),
     );
   }
